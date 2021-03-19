@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UPG - Generate passwords</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <section id="TitleOne">    
+                    <h1>UltimatePasswordGenerator</h1>
+                    <input class="inputBox" type="text" name="" placeholder="Your Password" id="passwordf" readonly="">
+					<br>
+                            <input type="submit" onclick="generateRandPas();" value="Generate!">
+                            <br><br>
+                    <dev>
+                    	<input type="radio" id="letterNo" name="letters">no</input>
+                    	<input type="radio" id="letteraz"  name="letters">a-z</input>
+                    	<input type="radio" id="letteraZ" checked="true" name="letters">a-Z</input>
+                    	<input type="radio" id="letterAZ" name="letters">A-Z</input>
+ 						<br><br>
+ 					</dev>
+  					<input type="checkbox" id="specialSym" name="vehicle1" value="Bike" checked="checked">
+  					<label for="vehicle1"> Special Symbols</label>
+  					<br>
+                    <div class="slidecontainer">
+  					<p>Password length:</p>
+  					<input type="range" min="4" max="20" value="10" class="slider" id="sliderLength">
+  					<p><span id="outputLength"></span></p>        
+            </section>
+            <script>
+            	var sliderInp = document.getElementById("sliderLength");
+            	var labelOut = document.getElementById("outputLength");
+            	labelOut.innerHTML = sliderInp.value;
+            	sliderInp.oninput = function(){
+            		labelOut.innerHTML = this.value;
+            	}
+            	function generateRandPas(){
+            		var rd0 = document.getElementById("letterNo");
+            		var rd1 = document.getElementById("letteraz");
+            		var rd2 = document.getElementById("letteraZ");
+            		var rd3 = document.getElementById("letterAZ");
+            		var noLetters = "0123456789";
+            		var azLetters = "qwertyuiopasdfghjklzxcvbnm";
+            		var cAZLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            		var specialSymbols = "!#$%&?@^~&!??#";		
+            		var pasLength = document.getElementById("sliderLength").value;
+            		var finalPassword = "";
+            		var finalSet = noLetters + azLetters;	
+            		if(rd0.checked == true) finalSet = noLetters;
+            		else if(rd1.checked == true) finalSet = azLetters + noLetters;
+            		else if(rd2.checked == true) finalSet = azLetters + cAZLetters + noLetters;
+            		else if(rd3.checked == true) finalSet = cAZLetters + noLetters;
+            		if(document.getElementById("specialSym").checked) finalSet += specialSymbols;
+            		for(var i = 0; i < pasLength; i++){
+            			var randomNumber = Math.floor(Math.random() * finalSet.length);
+            			finalPassword += finalSet.substring(randomNumber,randomNumber + 1);
+            		}
+            		document.getElementById("passwordf").value =finalPassword
+            	}
+            </script>
+        </main>
+    </body>
+</html>
